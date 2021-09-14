@@ -30,7 +30,7 @@ sudo touch /etc/ansible/group_vars/windows.yml
 sudo chown $USER:yaron /etc/ansible/group_vars/windows.yml
 sudo chmod a+rwx /etc/ansible/group_vars/windows.yml
 echo ansible_user: administrator > /etc/ansible/group_vars/windows.yml
-echo ansible_password: '1qaz!QAZ' >> /etc/ansible/group_vars/windows.yml
+echo ansible_password: '<PASSWORD>' >> /etc/ansible/group_vars/windows.yml
 echo ansible_port: 5985 >> /etc/ansible/group_vars/windows.yml
 echo ansible_connection: winrm >> /etc/ansible/group_vars/windows.yml
 echo ansible_winrm_scheme: http >> /etc/ansible/group_vars/windows.yml

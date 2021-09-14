@@ -1,0 +1,54 @@
+******** remove master branch and create new one in case of first push to master with passwords ********
+*** create new branch from master branch ****
+git checkout --orphan new_branch
+git add .
+git commit -m "deleted past commits"
+
+*** Now we have two identical branches master and new_branch ***
+
+*** delete the master branch ***
+git branch -D master
+
+*** rename the current branch to master ***
+git branch -m master
+
+*** fix or remove passwords from files that were commit by mistake ***
+git add .
+git commit -m "init"
+
+*** push with f tag to remote repo to override the master branch ***
+git push -f origin master
+
+Done!
+******** remove nmster branch and create new one in case of first push to master with passwords ********
+
+
+******** revert last commit that was pushed to server and we still can see the reverted commit ********
+git status
+
+git log   ( get the hash nuber of the last commit)
+
+git revert hashnumber
+
+:Q!
+
+Done!
+******** revert last commit that was pushed to server and we still can see the reverted commit ********
+
+
+**** reset commits above with passwords to the one we select to be the last commit *****
+git status
+
+git log   ( get the hash nuber of the commit that we want it to be the last one)
+
+git reset hashnumber
+
+git push -f origin master
+
+git checkout CleanGitCommits.txt   (restore the local file)
+
+Done!
+**** reset commits above with passwords to the one we select to be the last commit *****
+
+
+
