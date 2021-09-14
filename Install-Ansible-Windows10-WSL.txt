@@ -1,0 +1,75 @@
+**** WinRM configuration on windows client ****
+set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+winrm set winrm/config/service/auth @{Basic="true"}
+winrm set winrm/config/service @{AllowUnencrypted="true"}
+winrm enumerate winrm/config/listener
+
+
+*** install ansible server on windows 10 WSL ***
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt install net-tools
+sudo apt-get install python -y
+sudo apt install python3-pip
+sudo apt install pip
+pip
+sudo apt install pip - if didn't work in the first time
+pip install "pywinrm>=0.3.0"
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible -y
+ansible --version
+sudo apt-get install ansible -y - if didn't work in the first time
+
+
+
+*** create "windows.yml" configuration file ***
+sudo mkdir /etc/ansible/group_vars
+sudo chown $USER:yaron /etc/ansible/group_vars
+sudo touch /etc/ansible/group_vars/windows.yml
+sudo chown $USER:yaron /etc/ansible/group_vars/windows.yml
+sudo chmod a+rwx /etc/ansible/group_vars/windows.yml
+echo ansible_user: administrator > /etc/ansible/group_vars/windows.yml
+echo ansible_password: '1qaz!QAZ' >> /etc/ansible/group_vars/windows.yml
+echo ansible_port: 5985 >> /etc/ansible/group_vars/windows.yml
+echo ansible_connection: winrm >> /etc/ansible/group_vars/windows.yml
+echo ansible_winrm_scheme: http >> /etc/ansible/group_vars/windows.yml
+echo ansible_winrm_server_cert_validation: ignore >> /etc/ansible/group_vars/windows.yml
+cat /etc/ansible/group_vars/windows.yml
+
+
+*** "hosts" configuration ***
+sudo chown $USER:yaron /etc/ansible/hosts
+sudo chmod a+rwx /etc/ansible/hosts
+echo [windows] >> /etc/ansible/hosts
+echo 172.28.6.50 >> /etc/ansible/hosts
+cat /etc/ansible/hosts
+ansible windows -m win_ping
+
+
+*** create playbook script ***
+sudo touch /etc/ansible/runbatch.yml
+sudo chown $USER:yaron /etc/ansible/runbatch.yml
+sudo chmod a+rwx /etc/ansible/runbatch.yml
+echo --- > /etc/ansible/runbatch.yml
+echo "" >> /etc/ansible/runbatch.yml
+echo - name: testing ansible >> /etc/ansible/runbatch.yml
+echo "" >> /etc/ansible/runbatch.yml
+echo "  hosts: all" >> /etc/ansible/runbatch.yml
+echo "" >> /etc/ansible/runbatch.yml
+echo "  tasks:" >> /etc/ansible/runbatch.yml
+echo "" >> /etc/ansible/runbatch.yml
+echo "    - name: execute batch" >> /etc/ansible/runbatch.yml
+echo "      win_command: 'c:\temp\hello.bat'" >> /etc/ansible/runbatch.yml
+cat /etc/ansible/runbatch.yml
+
+
+run playbook:
+ansible-playbook /etc/ansible/runbatch.yml --connection=local
+
+
+
+
+
+
+
