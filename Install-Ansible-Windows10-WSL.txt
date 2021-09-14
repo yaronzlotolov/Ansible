@@ -64,12 +64,14 @@ echo "      win_command: 'c:\temp\hello.bat'" >> /etc/ansible/runbatch.yml
 cat /etc/ansible/runbatch.yml
 
 
-run playbook:
+*** run playbook ***
 ansible-playbook /etc/ansible/runbatch.yml --connection=local
 
-
-
-
-
-
-
+*** use cron for task scheduling ***
+sudo apt-get update
+sudo apt-get install cron
+cat /etc/crontab
+crontab -l (list)
+crontab -e (select nano editor)
+0 6 * * * ansible-playbook /etc/ansible/runbatch.yml --connection=local   (add task to run the playbook every day at 6am)
+crontab -l | tail -n 1
