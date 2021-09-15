@@ -70,6 +70,10 @@ ansible-playbook /etc/ansible/runbatch.yml --connection=local
 *** use cron for task scheduling ***
 sudo apt-get update
 sudo apt-get install cron
+sudo nano /etc/rsyslog.d/50-default.conf (remove #cron.*)
+sudo service rsyslog restart
+ls -ltr /var/log   (see cron.log)
+sudo service cron start
 cat /etc/crontab
 crontab -l (list)
 crontab -e (select nano editor)
